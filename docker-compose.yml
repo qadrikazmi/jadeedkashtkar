@@ -2,17 +2,29 @@ services:
   backend:
     build: ./Backend
     container_name: fastapi_backend
-    ports:
-      - "8000:8000"
+    restart: unless-stopped
     env_file:
       - ./Backend/.env
-    restart: always
+    expose:
+      - "8000"
+    volumes:
+      - backend_static:/app/static
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/')"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
 
   frontend:
     build: ./Frontend
     container_name: react_frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
     ports:
       - "80:80"
-    depends_on:
-      - backend
-    restart: always
+
+volumes:
+  backend_static:
