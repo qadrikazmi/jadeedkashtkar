@@ -1,0 +1,507 @@
+{
+  "schema_version": 1,
+  "model_family": "b3",
+  "timm_name": "tf_efficientnet_b3.ns_jft_in1k",
+  "num_classes": 38,
+  "unknown_threshold": 0.4,
+  "breakdown_top_n": 3,
+  "preprocess": {
+    "input_size": 300,
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ],
+    "interpolation": "bilinear",
+    "crop_pct": 1.0
+  },
+  "classes": [
+    {
+      "index": 0,
+      "folder": "Apple___Apple_scab",
+      "crop": "Apple",
+      "disease": "Apple Scab",
+      "label": "Apple scab",
+      "latin_name": "Venturia inaequalis",
+      "mitigations": [
+        "Remove and destroy infected apple leaves/debris to cut the spore source; avoid overhead irrigation and space plants for airflow.",
+        "Apply a labelled protectant fungicide (e.g. captan or a DMI/SDHI) on a preventive schedule during humid weather — confirm product, dosage and pre-harvest interval with a local agronomist.",
+        "Rake and destroy fallen leaves in autumn to remove overwintering inoculum; prefer scab-resistant cultivars next planting."
+      ]
+    },
+    {
+      "index": 1,
+      "folder": "Apple___Black_rot",
+      "crop": "Apple",
+      "disease": "Black Rot",
+      "label": "Black rot",
+      "latin_name": "Botryosphaeria obtusa",
+      "mitigations": [
+        "Prune out cankered wood and mummified fruit well below the infection, and remove them from the orchard.",
+        "Apply a labelled fungicide from bloom through the season in wet spells — confirm choice and dosage with an agronomist.",
+        "Maintain tree vigour (balanced nutrition, good drainage); avoid bark wounds that let the fungus enter."
+      ]
+    },
+    {
+      "index": 2,
+      "folder": "Apple___Cedar_apple_rust",
+      "crop": "Apple",
+      "disease": "Cedar Apple Rust",
+      "label": "Cedar apple rust",
+      "latin_name": "Gymnosporangium juniperi-virginianae",
+      "mitigations": [
+        "Where practical, remove nearby juniper/cedar hosts within a few hundred metres to break the two-host cycle.",
+        "Apply a preventive fungicide from pink-bud through early fruit set — timing matters more than rate.",
+        "Prefer rust-resistant apple cultivars for new plantings."
+      ]
+    },
+    {
+      "index": 3,
+      "folder": "Apple___healthy",
+      "crop": "Apple",
+      "disease": "Healthy",
+      "label": "Healthy tissue",
+      "latin_name": null,
+      "mitigations": [
+        "No disease detected. Continue routine scouting, balanced fertilisation and proper pruning for airflow.",
+        "Keep the orchard floor clear of fallen leaves and mummified fruit as a preventive habit."
+      ]
+    },
+    {
+      "index": 4,
+      "folder": "Blueberry___healthy",
+      "crop": "Blueberry",
+      "disease": "Healthy",
+      "label": "Healthy tissue",
+      "latin_name": null,
+      "mitigations": [
+        "No disease detected. Maintain acidic soil pH, mulch, and consistent moisture.",
+        "Scout weekly during warm humid periods for early leaf spotting."
+      ]
+    },
+    {
+      "index": 5,
+      "folder": "Cherry_(including_sour)___Powdery_mildew",
+      "crop": "Cherry",
+      "disease": "Powdery Mildew",
+      "label": "Powdery mildew",
+      "latin_name": "Podosphaera clandestina",
+      "mitigations": [
+        "Remove and destroy infected cherry leaves/debris to cut the spore source; avoid overhead irrigation and space plants for airflow.",
+        "Apply a labelled sulphur or a labelled DMI fungicide on a preventive schedule during humid weather — confirm product, dosage and pre-harvest interval with a local agronomist.",
+        "Prune to open the canopy for airflow and light; avoid excess nitrogen that pushes soft, susceptible growth."
+      ]
+    },
+    {
+      "index": 6,
+      "folder": "Cherry_(including_sour)___healthy",
+      "crop": "Cherry",
+      "disease": "Healthy",
+      "label": "Healthy tissue",
+      "latin_name": null,
+      "mitigations": [
+        "No disease detected. Keep the canopy open by pruning and avoid overhead wetting.",
+        "Scout new shoots for the white powdery growth that signals early mildew."
+      ]
+    },
+    {
+      "index": 7,
+      "folder": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "crop": "Corn",
+      "disease": "Gray Leaf Spot",
+      "label": "Gray leaf spot",
+      "latin_name": "Cercospora zeae-maydis",
+      "mitigations": [
+        "Rotate away from maize and bury/rotate residue — the fungus overwinters on infected stubble.",
+        "Apply a labelled foliar fungicide at early disease onset (around tasseling) if pressure is high; confirm timing with an agronomist.",
+        "Prefer gray-leaf-spot-tolerant hybrids and avoid continuous maize on the same field."
+      ]
+    },
+    {
+      "index": 8,
+      "folder": "Corn_(maize)___Common_rust_",
+      "crop": "Corn",
+      "disease": "Common Rust",
+      "label": "Common rust",
+      "latin_name": "Puccinia sorghi",
+      "mitigations": [
+        "Scout early; most hybrids tolerate light rust without yield loss.",
+        "For susceptible seed corn or heavy early infection, apply a labelled fungicide at first pustules.",
+        "Prefer rust-resistant hybrids in fields with a history of rust."
+      ]
+    },
+    {
+      "index": 9,
+      "folder": "Corn_(maize)___Northern_Leaf_Blight",
+      "crop": "Corn",
+      "disease": "Northern Leaf Blight",
+      "label": "Northern leaf blight",
+      "latin_name": "Exserohilum turcicum",
+      "mitigations": [
+        "Rotate crops and incorporate residue to reduce overwintering inoculum.",
+        "Apply a labelled fungicide between tasseling and silking if lesions appear on lower leaves early.",
+        "Plant NLB-resistant hybrids where the disease recurs."
+      ]
+    },
+    {
+      "index": 10,
+      "folder": "Corn_(maize)___healthy",
+      "crop": "Corn",
+      "disease": "Healthy",
+      "label": "Healthy tissue",
+      "latin_name": null,
+      "mitigations": [
+        "No disease detected. Maintain balanced fertility and rotate to limit residue-borne diseases.",
+        "Scout lower leaves after canopy closure, when foliar diseases usually start."
+      ]
+    },
+    {
+      "index": 11,
+      "folder": "Grape___Black_rot",
+      "crop": "Grape",
+      "disease": "Black Rot",
+      "label": "Black rot",
+      "latin_name": "Guignardia bidwellii",
+      "mitigations": [
+        "Remove mummified berries and infected canes during dormancy — they carry the fungus to next season.",
+        "Begin a preventive fungicide programme from early shoot growth through fruit set in wet weather.",
+        "Open the canopy by pruning and leaf-pulling to speed drying after rain."
+      ]
+    },
+    {
+      "index": 12,
+      "folder": "Grape___Esca_(Black_Measles)",
+      "crop": "Grape",
+      "disease": "Esca (Black Measles)",
+      "label": "Esca (Black Measles)",
+      "latin_name": "Phaeomoniella chlamydospora complex",
+      "mitigations": [
+        "Prune in dry weather and protect large pruning wounds; remove and burn severely affected vines.",
+        "There is no reliable spray cure — focus on wound protection, vine vigour and clean planting stock.",
+        "Avoid water stress and over-cropping, which worsen symptom expression."
+      ]
+    },
+    {
+      "index": 13,
+      "folder": "Grape___Leaf_blight_(Isariopsis_Leaf_Spot)",
+      "crop": "Grape",
+      "disease": "Isariopsis Leaf Spot",
+      "label": "Isariopsis leaf spot",
+      "latin_name": "Pseudocercospora vitis",
+      "mitigations": [
+        "Remove and destroy infected grape leaves/debris to cut the spore source; avoid overhead irrigation and space plants for airflow.",
+        "Apply a labelled protectant fungicide (mancozeb or copper-based) on a preventive schedule during humid weather — confirm product, dosage and pre-harvest interval with a local agronomist.",
+        "Improve canopy airflow and remove infected leaf litter; the disease rarely needs standalone sprays if black-rot cover is maintained."
+      ]
+    },
+    {
+      "index": 14,
+      "folder": "Grape___healthy",
+      "crop": "Grape",
+      "disease": "Healthy",
+      "label": "Healthy tissue",
+      "latin_name": null,
+      "mitigations": [
+        "No disease detected. Keep the canopy open and manage humidity around clusters.",
+        "Remove mummies and prunings from the vineyard floor as a preventive routine."
+      ]
+    },
+    {
+      "index": 15,
+      "folder": "Orange___Haunglongbing_(Citrus_greening)",
+      "crop": "Orange",
+      "disease": "Citrus Greening (HLB)",
+      "label": "Citrus greening (HLB)",
+      "latin_name": "Candidatus Liberibacter asiaticus",
+      "mitigations": [
+        "HLB is incurable — remove and destroy confirmed infected trees promptly to protect the rest of the grove.",
+        "Control the Asian citrus psyllid vector (Diaphorina citri) with an agronomist-guided programme.",
+        "Plant only certified disease-free nursery stock."
+      ]
+    },
+    {
+      "index": 16,
+      "folder": "Peach___Bacterial_spot",
+      "crop": "Peach",
+      "disease": "Bacterial Spot",
+      "label": "Bacterial spot",
+      "latin_name": "Xanthomonas arboricola pv. pruni",
+      "mitigations": [
+        "Avoid overhead irrigation and working trees when wet; prune for airflow to speed leaf drying.",
+        "Apply labelled copper-based sprays on a preventive schedule — bacteria are not curable once established.",
+        "Prefer bacterial-spot-tolerant peach cultivars for new plantings."
+      ]
+    },
+    {
+      "index": 17,
+      "folder": "Peach___healthy",
+      "crop": "Peach",
+      "disease": "Healthy",
+      "label": "Healthy tissue",
+      "latin_name": null,
+      "mitigations": [
+        "No disease detected. Maintain tree vigour and avoid overhead wetting of foliage.",
+        "Scout leaves and fruit for small dark angular spots during warm wet spells."
+      ]
+    },
+    {
+      "index": 18,
+      "folder": "Pepper,_bell___Bacterial_spot",
+      "crop": "Bell Pepper",
+      "disease": "Bacterial Spot",
+      "label": "Bacterial spot",
+      "latin_name": "Xanthomonas euvesicatoria",
+      "mitigations": [
+        "Use certified disease-free seed/transplants; rogue out early infected plants.",
+        "Avoid overhead irrigation and handling plants when wet; apply labelled copper (often with mancozeb) preventively.",
+        "Rotate away from peppers/tomatoes for 2-3 years and remove crop debris after harvest."
+      ]
+    },
+    {
+      "index": 19,
+      "folder": "Pepper,_bell___healthy",
+      "crop": "Bell Pepper",
+      "disease": "Healthy",
+      "label": "Healthy tissue",
+      "latin_name": null,
+      "mitigations": [
+        "No disease detected. Keep foliage dry and rotate away from solanaceous crops.",
+        "Scout for small water-soaked leaf spots after warm, rainy periods."
+      ]
+    },
+    {
+      "index": 20,
+      "folder": "Potato___Early_blight",
+      "crop": "Potato",
+      "disease": "Early Blight",
+      "label": "Early blight",
+      "latin_name": "Alternaria solani",
+      "mitigations": [
+        "Remove volunteer plants and debris; keep plants vigorous — early blight hits stressed, older foliage first.",
+        "Apply a labelled protectant fungicide (e.g. chlorothalonil or mancozeb) on a preventive schedule in warm humid weather.",
+        "Rotate out of potatoes/tomatoes for 2 years and avoid overhead irrigation late in the day."
+      ]
+    },
+    {
+      "index": 21,
+      "folder": "Potato___Late_blight",
+      "crop": "Potato",
+      "disease": "Late Blight",
+      "label": "Late blight",
+      "latin_name": "Phytophthora infestans",
+      "mitigations": [
+        "Act fast — late blight spreads explosively in cool wet weather. Destroy infected plants and cull infected tubers.",
+        "Apply a labelled late-blight fungicide preventively before/at first sign; switch to systemic actives under high pressure (agronomist-guided).",
+        "Plant certified seed, hill soil over tubers, and avoid overhead irrigation."
+      ]
+    },
+    {
+      "index": 22,
+      "folder": "Potato___healthy",
+      "crop": "Potato",
+      "disease": "Healthy",
+      "label": "Healthy tissue",
+      "latin_name": null,
+      "mitigations": [
+        "No disease detected. Use certified seed and scout closely during cool, wet spells for late blight.",
+        "Hill soil over developing tubers to protect them from spores."
+      ]
+    },
+    {
+      "index": 23,
+      "folder": "Raspberry___healthy",
+      "crop": "Raspberry",
+      "disease": "Healthy",
+      "label": "Healthy tissue",
+      "latin_name": null,
+      "mitigations": [
+        "No disease detected. Thin canes for airflow and keep the row base clear of debris.",
+        "Scout new canes for leaf spotting and rust during humid weather."
+      ]
+    },
+    {
+      "index": 24,
+      "folder": "Soybean___healthy",
+      "crop": "Soybean",
+      "disease": "Healthy",
+      "label": "Healthy tissue",
+      "latin_name": null,
+      "mitigations": [
+        "No disease detected. Maintain rotation and scout for foliar spotting through the canopy.",
+        "Manage residue and volunteers to limit carry-over of foliar diseases."
+      ]
+    },
+    {
+      "index": 25,
+      "folder": "Squash___Powdery_mildew",
+      "crop": "Squash",
+      "disease": "Powdery Mildew",
+      "label": "Powdery mildew",
+      "latin_name": "Podosphaera xanthii",
+      "mitigations": [
+        "Scout undersides of older leaves; remove the most heavily coated leaves to slow spread.",
+        "Apply sulphur, potassium bicarbonate, or a labelled fungicide at first white colonies — rotate actives to avoid resistance.",
+        "Space plants and prefer mildew-tolerant varieties for airflow and durability."
+      ]
+    },
+    {
+      "index": 26,
+      "folder": "Strawberry___Leaf_scorch",
+      "crop": "Strawberry",
+      "disease": "Leaf Scorch",
+      "label": "Leaf scorch",
+      "latin_name": "Diplocarpon earlianum",
+      "mitigations": [
+        "Remove and destroy infected strawberry leaves/debris to cut the spore source; avoid overhead irrigation and space plants for airflow.",
+        "Apply a labelled protectant fungicide (captan or a labelled option) on a preventive schedule during humid weather — confirm product, dosage and pre-harvest interval with a local agronomist.",
+        "Renovate beds after harvest, remove old infected leaves, and avoid overhead irrigation."
+      ]
+    },
+    {
+      "index": 27,
+      "folder": "Strawberry___healthy",
+      "crop": "Strawberry",
+      "disease": "Healthy",
+      "label": "Healthy tissue",
+      "latin_name": null,
+      "mitigations": [
+        "No disease detected. Keep foliage dry with drip irrigation and remove old leaves at renovation.",
+        "Scout for purple-bordered leaf spots after warm, wet weather."
+      ]
+    },
+    {
+      "index": 28,
+      "folder": "Tomato___Bacterial_spot",
+      "crop": "Tomato",
+      "disease": "Bacterial Spot",
+      "label": "Bacterial spot",
+      "latin_name": "Xanthomonas spp.",
+      "mitigations": [
+        "Use certified clean seed/transplants; avoid overhead irrigation and handling wet plants.",
+        "Apply labelled copper (often tank-mixed with mancozeb) preventively — copper alone weakens under resistance.",
+        "Rotate 2-3 years away from tomato/pepper and remove debris after harvest."
+      ]
+    },
+    {
+      "index": 29,
+      "folder": "Tomato___Early_blight",
+      "crop": "Tomato",
+      "disease": "Early Blight",
+      "label": "Early blight",
+      "latin_name": "Alternaria solani",
+      "mitigations": [
+        "Remove lower infected leaves, mulch to block soil splash, and stake plants for airflow.",
+        "Apply a labelled protectant fungicide (chlorothalonil/mancozeb) preventively in warm humid weather.",
+        "Rotate out of solanaceous crops for 2 years and keep plants well nourished."
+      ]
+    },
+    {
+      "index": 30,
+      "folder": "Tomato___Late_blight",
+      "crop": "Tomato",
+      "disease": "Late Blight",
+      "label": "Late blight",
+      "latin_name": "Phytophthora infestans",
+      "mitigations": [
+        "Move fast — destroy infected plants immediately; the disease can wipe out a field in days in cool wet weather.",
+        "Apply a labelled late-blight fungicide preventively; use systemic actives under high pressure (agronomist-guided).",
+        "Avoid overhead irrigation, space plants, and never compost infected material."
+      ]
+    },
+    {
+      "index": 31,
+      "folder": "Tomato___Leaf_Mold",
+      "crop": "Tomato",
+      "disease": "Leaf Mold",
+      "label": "Leaf mold",
+      "latin_name": "Passalora fulva",
+      "mitigations": [
+        "Primarily a greenhouse/high-humidity disease — improve ventilation and reduce humidity below 85%.",
+        "Remove affected leaves and apply a labelled fungicide if it persists; avoid overhead wetting.",
+        "Prefer leaf-mold-resistant cultivars in protected culture."
+      ]
+    },
+    {
+      "index": 32,
+      "folder": "Tomato___Septoria_leaf_spot",
+      "crop": "Tomato",
+      "disease": "Septoria Leaf Spot",
+      "label": "Septoria leaf spot",
+      "latin_name": "Septoria lycopersici",
+      "mitigations": [
+        "Remove and destroy infected tomato leaves/debris to cut the spore source; avoid overhead irrigation and space plants for airflow.",
+        "Apply a labelled protectant fungicide (chlorothalonil or mancozeb) on a preventive schedule during humid weather — confirm product, dosage and pre-harvest interval with a local agronomist.",
+        "Mulch to stop soil splash, remove infected lower leaves early, and rotate away from tomato for 2 years."
+      ]
+    },
+    {
+      "index": 33,
+      "folder": "Tomato___Spider_mites Two-spotted_spider_mite",
+      "crop": "Tomato",
+      "disease": "Two-Spotted Spider Mite",
+      "label": "Spider mites",
+      "latin_name": "Tetranychus urticae",
+      "mitigations": [
+        "This is a pest, not a fungus — check leaf undersides for fine webbing and stippling; hose off light infestations.",
+        "Conserve/introduce predatory mites; use a labelled miticide only when needed and rotate actives to avoid resistance.",
+        "Avoid dusty, water-stressed conditions, which favour mite outbreaks."
+      ]
+    },
+    {
+      "index": 34,
+      "folder": "Tomato___Target_Spot",
+      "crop": "Tomato",
+      "disease": "Target Spot",
+      "label": "Target spot",
+      "latin_name": "Corynespora cassiicola",
+      "mitigations": [
+        "Remove and destroy infected tomato leaves/debris to cut the spore source; avoid overhead irrigation and space plants for airflow.",
+        "Apply a labelled protectant fungicide (chlorothalonil or a labelled SDHI) on a preventive schedule during humid weather — confirm product, dosage and pre-harvest interval with a local agronomist.",
+        "Improve airflow with staking/pruning, remove infected debris, and avoid prolonged leaf wetness."
+      ]
+    },
+    {
+      "index": 35,
+      "folder": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+      "crop": "Tomato",
+      "disease": "Yellow Leaf Curl Virus",
+      "label": "Yellow leaf curl virus",
+      "latin_name": "Tomato yellow leaf curl virus (Begomovirus)",
+      "mitigations": [
+        "The virus is incurable — rogue out infected plants and control the whitefly vector (Bemisia tabaci).",
+        "Use resistant/tolerant varieties and protect young transplants with nets or reflective mulch.",
+        "Manage weeds that host whiteflies and avoid staggered plantings that bridge the vector."
+      ]
+    },
+    {
+      "index": 36,
+      "folder": "Tomato___Tomato_mosaic_virus",
+      "crop": "Tomato",
+      "disease": "Tomato Mosaic Virus",
+      "label": "Tomato mosaic virus",
+      "latin_name": "Tomato mosaic virus (ToMV)",
+      "mitigations": [
+        "Remove and destroy infected plants; the virus spreads by handling, tools and debris (no vector needed).",
+        "Wash hands and disinfect tools between plants; avoid tobacco use around plants.",
+        "Use certified seed and resistant cultivars; the virus survives long-term in debris."
+      ]
+    },
+    {
+      "index": 37,
+      "folder": "Tomato___healthy",
+      "crop": "Tomato",
+      "disease": "Healthy",
+      "label": "Healthy tissue",
+      "latin_name": null,
+      "mitigations": [
+        "No disease detected. Stake and mulch plants, water at the base, and scout lower leaves weekly.",
+        "Rotate out of solanaceous crops each season to limit soil-borne carry-over."
+      ]
+    }
+  ]
+}
