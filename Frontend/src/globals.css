@@ -1,0 +1,625 @@
+@import "tailwindcss";
+
+:root {
+  /* Design tokens — design_handoff/README.md
+     Gray text ramp, WCAG AA verified (4.5:1 min) against every background it's
+     actually used on in this codebase — mint-100 is the tightest (lightest) bg.
+     ink-900: headings + body copy. ink-600: labels/eyebrows (passes AA on its own,
+     kept as-is). ink-500/ink-400: recalibrated below — the previous values
+     (#6b7a6f / #8a927f) measured 3.99–4.11:1 and 2.85–2.94:1, both under 4.5:1,
+     so any small (<18px) text on them failed AA. Dark theme is opt-in via
+     ThemeToggle (data-theme="dark" on <html>), not OS-driven — light is
+     always the default. */
+  color-scheme: light;
+
+  /* Font variables — next/font/google injected these automatically in the
+     Next.js version. Vite has no equivalent, so they're defined manually
+     here instead, matching the Google Fonts <link> added in index.html. */
+  --font-inter: 'Inter', system-ui, sans-serif;
+  --font-besley: 'Bitter', Georgia, serif;
+  --font-noto-nastaliq: 'Noto Nastaliq Urdu', serif;
+
+  /* Light mode (default) */
+  --color-forest-900: #1b4332;
+  --color-forest-700: #2d6a4f;
+  --color-forest-500: #40916c;
+  /* Brand text ramp — same values as forest-900/700/500 in light mode, but
+     (unlike forest-*, which stays constant as a solid FILL color for buttons/
+     banners/sidebar/badges) these invert to a lighter green in dark mode.
+     Use for standalone brand-colored text sitting directly on a neutral
+     cream-bg/cream-card surface (wordmarks, headline accents, links, stat
+     values) — never on top of a frozen forest-* fill, which already has the
+     right contrast baked in from light mode. */
+  --color-forest-ink-900: #1b4332;
+  --color-forest-ink-700: #2d6a4f;
+  --color-forest-ink-500: #40916c;
+  --color-mint-300: #95d5b2;
+  --color-mint-100: #eaf3ec;
+  --color-mint-border: #cde3d3;
+  --color-mint-border-strong: #a8cdb4;
+  --color-cream-bg: #f6f4ed;
+  --color-cream-card: #fdfcf9;
+  --color-cream-inset: #f1eee3;
+  --color-border: #e7e3d6;
+  --color-input-border: #e2decd;
+  /* Gray text ramp (recalibrated) — contrast below is the worst case across
+     cream-bg/cream-card/mint-100/white, the real backgrounds these sit on */
+  --color-ink-900: #1e2b23;    /* Headings + body text: 13.0:1 min */
+  --color-ink-600: #4a5a4f;    /* Labels, eyebrow text: 6.5:1 min */
+  --color-ink-500: #5d6c61;    /* Secondary text (captions, meta): 4.9:1 min */
+  --color-ink-400: #686f5d;    /* Tertiary text (compact labels, counts): 4.6:1 min */
+  --color-ink-400-alt: #686f5e;
+  --color-alert-red: #d95d45;
+  --color-alert-red-text: #8c3423;
+  --color-alert-red-body: #a06147;
+  --color-alert-red-bg: #fcefe9;
+  --color-alert-red-border: #f2d5c8;
+  --color-alert-amber: #e9b44c;
+  --color-alert-amber-text: #b07d2b;
+  --color-alert-amber-bg: #fbf3e1;
+  --color-alert-amber-border: #f0e3c2;
+  --color-info-blue: #4e8dbf;
+  --color-info-blue-bg: #e7f0f7;
+  --color-info-blue-text: #3a719b;
+  --color-down-red: #c1512f;
+
+  /* Per-measure chart identity colors — a CVD-validated categorical set
+     (dataviz skill's reference palette, validated against this app's
+     cream-card / dark surfaces). Fixed assignment, never cycled; every
+     mark that uses them is also labeled, which relieves the 3 hues that
+     sit under 3:1 on this light surface (aqua/yellow/magenta). */
+  --m-ndvi: #2a78d6;  /* blue */
+  --m-ndmi: #eb6834;  /* orange */
+  --m-ndre: #1baf7a;  /* aqua */
+  --m-nbr2: #eda100;  /* yellow */
+  --m-ndwi: #e87ba4;  /* magenta */
+  --m-cci: #008300;   /* green */
+  --m-evi: #4a3aa7;   /* violet */
+  --m-savi: #e34948;  /* red */
+}
+
+/* Dark mode theme — opt-in only (ThemeToggle sets data-theme, see lib/theme.ts).
+   Light is the site default regardless of OS preference; this never reads
+   prefers-color-scheme, so it only activates when a user explicitly switches. */
+:root[data-theme="dark"] {
+    color-scheme: dark;
+
+    /* Dark backgrounds: deep forest-tinted neutrals */
+    --color-cream-bg: #0f1410;      /* Dark forest base */
+    --color-cream-card: #131917;    /* Slightly lighter elevation */
+    --color-cream-inset: #0d1310;   /* Sunken surface */
+
+    /* Borders: softer in dark mode */
+    --color-border: #252c27;
+    --color-input-border: #2a3230;
+
+    /* Text: light on dark (reduced weight reads better) */
+    --color-ink-900: #f0f3ee;       /* Body text: 4.8:1 contrast on dark forest */
+    --color-ink-600: #c4cec6;       /* Labels, secondary text */
+    --color-ink-500: #a8b4aa;       /* Tertiary text (deprecated for primary use) */
+    --color-ink-400: #8a9589;       /* Placeholder/disabled states */
+    --color-ink-400-alt: #7a8577;
+
+    /* Forest/mint stay CONSTANT across themes — they're used as solid brand
+        FILLS (buttons, the ledger/CTA banners, badge/chip pills, the app
+        Sidebar) that were tuned against light-mode partners (e.g. white text
+        on forest-900, forest-700 text on mint-100). Inverting them here
+        previously washed every one of those out to pale, low-contrast green.
+        forest-ink-* (below) covers standalone brand text on neutral surfaces. */
+    --color-forest-ink-900: #6cc584;
+    --color-forest-ink-700: #5db375;
+    --color-forest-ink-500: #4fa166;
+
+    /* Semantic colors for dark mode */
+    --color-alert-red: #ff6b5b;     /* Brighter red in dark mode */
+    --color-alert-red-text: #ffb3a8;
+    --color-alert-red-body: #ff8c6e;
+    --color-alert-red-bg: #3a1f18;  /* Very dark red background */
+    --color-alert-red-border: #5a3028;
+
+    --color-alert-amber: #f4c853;   /* Brighter amber */
+    --color-alert-amber-text: #ffe4a8;
+    --color-alert-amber-bg: #3a2f18;
+    --color-alert-amber-border: #5a4a28;
+
+    --color-info-blue: #7ec1ff;     /* Brighter blue */
+    --color-info-blue-bg: #1d3a52;  /* Dark blue background */
+    --color-info-blue-text: #b0d8ff;
+
+    --color-down-red: #ff7a5c;
+
+    /* Dark steps of the same 8 hues (validated ≥3:1 on the dark surface). */
+    --m-ndvi: #3987e5;
+    --m-ndmi: #d95926;
+    --m-ndre: #199e70;
+    --m-nbr2: #c98500;
+    --m-ndwi: #d55181;
+    --m-cci: #008300;
+    --m-evi: #9085e9;
+    --m-savi: #e66767;
+}
+
+@theme inline {
+  --color-forest-900: var(--color-forest-900);
+  --color-forest-700: var(--color-forest-700);
+  --color-forest-500: var(--color-forest-500);
+  --color-forest-ink-900: var(--color-forest-ink-900);
+  --color-forest-ink-700: var(--color-forest-ink-700);
+  --color-forest-ink-500: var(--color-forest-ink-500);
+  --color-mint-300: var(--color-mint-300);
+  --color-mint-100: var(--color-mint-100);
+  --color-mint-border: var(--color-mint-border);
+  --color-mint-border-strong: var(--color-mint-border-strong);
+  --color-cream-bg: var(--color-cream-bg);
+  --color-cream-card: var(--color-cream-card);
+  --color-cream-inset: var(--color-cream-inset);
+  --color-border: var(--color-border);
+  --color-input-border: var(--color-input-border);
+  --color-ink-900: var(--color-ink-900);
+  --color-ink-600: var(--color-ink-600);
+  --color-ink-500: var(--color-ink-500);
+  --color-ink-400: var(--color-ink-400);
+  --color-ink-400-alt: var(--color-ink-400-alt);
+  --color-alert-red: var(--color-alert-red);
+  --color-alert-red-text: var(--color-alert-red-text);
+  --color-alert-red-body: var(--color-alert-red-body);
+  --color-alert-red-bg: var(--color-alert-red-bg);
+  --color-alert-red-border: var(--color-alert-red-border);
+  --color-alert-amber: var(--color-alert-amber);
+  --color-alert-amber-text: var(--color-alert-amber-text);
+  --color-alert-amber-bg: var(--color-alert-amber-bg);
+  --color-alert-amber-border: var(--color-alert-amber-border);
+  --color-info-blue: var(--color-info-blue);
+  --color-info-blue-bg: var(--color-info-blue-bg);
+  --color-info-blue-text: var(--color-info-blue-text);
+  --color-down-red: var(--color-down-red);
+
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-besley), Georgia, serif;
+  --font-urdu: var(--font-noto-nastaliq), serif;
+
+  --radius-card: 16px;
+  --radius-card-lg: 20px;
+  --radius-btn: 10px;
+  --radius-chip: 9px;
+  --radius-pill: 999px;
+  --radius-inset: 11px;
+
+  --shadow-card: 0 1px 2px rgba(27, 67, 50, 0.05);
+  --shadow-dropdown: 0 10px 30px rgba(27, 67, 50, 0.16);
+  --shadow-fab: 0 6px 18px rgba(27, 67, 50, 0.4);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+@keyframes jkSlideR {
+  from {
+    opacity: 0;
+    transform: translateX(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.jk-slide-r {
+  animation: jkSlideR 0.7s cubic-bezier(0.2, 0.8, 0.3, 1) 0.7s both;
+}
+
+@keyframes jkFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.jk-hero-in > * {
+  animation: jkFadeUp 0.75s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+.jk-hero-in > *:nth-child(2) {
+  animation-delay: 0.08s;
+}
+.jk-hero-in > *:nth-child(3) {
+  animation-delay: 0.16s;
+}
+.jk-hero-in > *:nth-child(4) {
+  animation-delay: 0.24s;
+}
+.jk-hero-in > *:nth-child(5) {
+  animation-delay: 0.32s;
+}
+
+/* Topographic contour rings — echoes the elevation/boundary lines of a satellite field map. */
+.jk-contours {
+  background-image:
+    repeating-radial-gradient(circle at 12% 18%, rgba(27, 67, 50, 0.055) 0, rgba(27, 67, 50, 0.055) 1px, transparent 1px, transparent 28px),
+    repeating-radial-gradient(circle at 88% 64%, rgba(64, 145, 108, 0.05) 0, rgba(64, 145, 108, 0.05) 1px, transparent 1px, transparent 36px);
+}
+.jk-contours-dark {
+  background-image:
+    repeating-radial-gradient(circle at 85% 12%, rgba(255, 255, 255, 0.045) 0, rgba(255, 255, 255, 0.045) 1px, transparent 1px, transparent 30px),
+    repeating-radial-gradient(circle at 8% 80%, rgba(149, 213, 178, 0.06) 0, rgba(149, 213, 178, 0.06) 1px, transparent 1px, transparent 38px);
+}
+
+.jk-focus {
+  outline: none;
+}
+.jk-focus:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-cream-bg), 0 0 0 4px var(--color-forest-500);
+  border-radius: 6px;
+}
+
+/* Bold native range-slider — the browser's stock thumb reads as an
+   afterthought at this size, so this reshapes it into a solid, shadowed
+   FAB-weight grab handle instead of switching to a custom drag control.
+   Native <input type="range"> semantics (keyboard, touch, a11y) stay intact;
+   only the thumb/track paint is replaced. */
+.jk-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+.jk-slider::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--color-cream-inset);
+}
+.jk-slider::-moz-range-track {
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--color-cream-inset);
+}
+.jk-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: -7px;
+  border-radius: 50%;
+  background: var(--color-forest-900);
+  box-shadow: 0 0 0 3px var(--color-cream-card), var(--shadow-fab);
+  cursor: pointer;
+  transition: transform 180ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+.jk-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-forest-900);
+  box-shadow: 0 0 0 3px var(--color-cream-card), var(--shadow-fab);
+  cursor: pointer;
+  transition: transform 180ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.jk-how-connector {
+  transition: border-color 300ms ease;
+}
+.jk-how-grid:has(.jk-how-step:hover, .jk-how-step:focus-visible) .jk-how-connector {
+  border-color: var(--color-mint-300);
+}
+
+@keyframes jkUnderlineDraw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.jk-headline-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.06em;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--color-mint-300);
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: jkUnderlineDraw 0.5s cubic-bezier(0.2, 0.8, 0.3, 1) 0.95s both;
+}
+
+@keyframes jkMapEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.jk-map-in {
+  animation: jkMapEntrance 0.6s cubic-bezier(0.2, 0.8, 0.3, 1) 0.4s backwards;
+}
+
+@keyframes jkOverlayIn {
+  from {
+    opacity: 0;
+    transform: scale(0.93);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.jk-overlay-in {
+  animation: jkOverlayIn 0.32s cubic-bezier(0.2, 0.8, 0.3, 1) backwards;
+}
+
+@keyframes jkBackdropIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.jk-backdrop-in {
+  animation: jkBackdropIn 0.25s ease backwards;
+}
+
+@keyframes jkScanSweep {
+  from {
+    transform: skewX(-9deg) translateX(-110%);
+  }
+  to {
+    transform: skewX(-9deg) translateX(240%);
+  }
+}
+.jk-scan-band {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 34%;
+  mix-blend-mode: screen;
+  background: linear-gradient(
+    90deg,
+    rgba(149, 213, 178, 0) 0%,
+    rgba(149, 213, 178, 0.1) 45%,
+    rgba(149, 213, 178, 0.26) 76%,
+    rgba(183, 228, 199, 0.55) 93%,
+    rgba(236, 253, 245, 0.95) 100%
+  );
+  box-shadow:
+    2px 0 0 rgba(240, 255, 248, 0.9),
+    10px 0 26px rgba(149, 213, 178, 0.45);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  animation: jkScanSweep 2.8s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jk-scan-band {
+    display: none;
+  }
+}
+
+/* Base and Reset styles (from index.css & globals.css) */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-cream-bg);
+  color: var(--color-ink-900);
+}
+
+[lang="ur"] {
+  font-family: var(--font-urdu), system-ui, sans-serif;
+  line-height: 1.7;
+}
+
+/* Boilerplate styles from App.css */
+.counter {
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+  margin-bottom: 24px;
+
+  &:hover {
+    border-color: var(--accent-border);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+.hero {
+  position: relative;
+
+  .base,
+  .framework,
+  .vite {
+    inset-inline: 0;
+    margin: 0 auto;
+  }
+
+  .base {
+    width: 170px;
+    position: relative;
+    z-index: 0;
+  }
+
+  .framework,
+  .vite {
+    position: absolute;
+  }
+
+  .framework {
+    z-index: 1;
+    top: 34px;
+    height: 28px;
+    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
+      scale(1.4);
+  }
+
+  .vite {
+    z-index: 0;
+    top: 107px;
+    height: 26px;
+    width: auto;
+    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
+      scale(0.8);
+  }
+}
+
+#center {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  place-content: center;
+  place-items: center;
+  flex-grow: 1;
+
+  @media (max-width: 1024px) {
+    padding: 32px 20px 24px;
+    gap: 18px;
+  }
+}
+
+#next-steps {
+  display: flex;
+  border-top: 1px solid var(--border);
+  text-align: left;
+
+  & > div {
+    flex: 1 1 0;
+    padding: 32px;
+    @media (max-width: 1024px) {
+      padding: 24px 20px;
+    }
+  }
+
+  .icon {
+    margin-bottom: 16px;
+    width: 22px;
+    height: 22px;
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+#docs {
+  border-right: 1px solid var(--border);
+
+  @media (max-width: 1024px) {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+#next-steps ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 8px;
+  margin: 32px 0 0;
+
+  .logo {
+    height: 18px;
+  }
+
+  a {
+    color: var(--text-h);
+    font-size: 16px;
+    border-radius: 6px;
+    background: var(--social-bg);
+    display: flex;
+    padding: 6px 12px;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: box-shadow 0.3s;
+
+    &:hover {
+      box-shadow: var(--shadow);
+    }
+    .button-icon {
+      height: 18px;
+      width: 18px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    li {
+      flex: 1 1 calc(50% - 8px);
+    }
+
+    a {
+      width: 100%;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+  }
+}
+
+#spacer {
+  height: 88px;
+  border-top: 1px solid var(--border);
+  @media (max-width: 1024px) {
+    height: 48px;
+  }
+}
+
+.ticks {
+  position: relative;
+  width: 100%;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: -4.5px;
+    border: 5px solid transparent;
+  }
+
+  &::before {
+    left: 0;
+    border-left-color: var(--border);
+  }
+  &::after {
+    right: 0;
+    border-right-color: var(--border);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
